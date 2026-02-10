@@ -1,0 +1,39 @@
+.progress {
+  min-width: 100px;
+}
+
+.table th {
+  background-color: #f8f9fa;
+  border-top: none;
+}
+
+.badge {
+  font-size: 0.8em;
+  padding: 5px 10px;
+}
+
+/* Class for the probabilities */
+.high-probability {
+  background-color: #28a745 !important;
+}
+
+.medium-probability {
+  background-color: #ffc107 !important;
+  color: #000 !important;
+}
+
+.low-probability {
+  background-color: #dc3545 !important;
+}
+
+/* Responsive table styles */
+@media (max-width: 768px) {
+  .table-responsive {
+    font-size: 0.9rem;
+  }
+
+  .btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+  }
+}

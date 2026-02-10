@@ -1,3 +1,8 @@
 import { Routes } from '@angular/router';
+import { LeadListComponent } from './components/lead-list/lead-list.component';
 
-export const routes: Routes = [];
+export const routes: Routes = [
+  { path: '', redirectTo: '/leads', pathMatch: 'full' },
+  { path: 'leads', component: LeadListComponent },
+  { path: '**', redirectTo: '/leads' }
+];
