@@ -1,14 +1,21 @@
-# odoo_api/odoo_client.py
 import odoorpc
 from django.conf import settings
+import os
+
+DB_NAME= os.environ.get('DB_NAME')
+USER_NAME= os.environ.get('USER_NAME')
+PORT= os.environ.get('PORT')
+HOST= os.environ.get('HOST')
+PASSWORD= os.environ.get('PASSWORD')
+API_RPC= os.environ.get('API_RPC')
 
 class OdooClient:
     def __init__(self):
-        self.host = 'localhost'
+        self.host = HOST
         self.port = 8069
-        self.database = 'odoo_db'
-        self.username = 'admin'
-        self.password = 'admin'
+        self.database = DB_NAME
+        self.username = 'andres@mail.com'
+        self.password = PASSWORD
         self.protocol = 'jsonrpc'
         
     def connect(self):
