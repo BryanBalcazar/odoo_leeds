@@ -1,54 +1,29 @@
+# odoo_api/views.py
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .services.lead_service import LeadService
+from .odoo_client import OdooClient
 
 @api_view(['GET'])
-def list_leads(request):
-    service = LeadService()
-    limit = int(request.GET.get('limit', 20))
-    offset = int(request.GET.get('offset', 0))
-
-    leads = service.list(limit=limit, offset=offset)
-
+def get_leads(request):
+    """API para obtener leads de Odoo"""
+    limit = request.GET.get('limit', 100)
+    
+    odoo_client = OdooClient()
+    leads = odoo_client.get_leads(limit=int(limit))
+    
     return Response({
-        "success": True,
-        "data": leads
+        'success': True,
+        'data': leads,
+        'count': len(leads)
     })
-
 
 @api_view(['GET'])
-def retrieve_lead(request, lead_id):
-    service = LeadService()
-    lead = service.retrieve(lead_id)
-
+def health_check(request):
+    """Verificar conexión con Odoo"""
+    odoo_client = OdooClient()
+    odoo = odoo_client.connect()
+    
     return Response({
-        "success": True,
-        "data": lead
+        'success': odoo is not None,
+        'message': 'Conectado a Odoo' if odoo else 'Error de conexión'
     })
-
-
-@api_view(['POST'])
-def create_lead(request):
-    service = LeadService()
-    lead_id = service.create(request.data)
-
-    return Response({
-        "success": True,
-        "id": lead_id
-    })
-
-
-@api_view(['PUT'])
-def update_lead(request, lead_id):
-    service = LeadService()
-    service.update(lead_id, request.data)
-
-    return Response({"success": True})
-
-
-@api_view(['DELETE'])
-def delete_lead(request, lead_id):
-    service = LeadService()
-    service.delete(lead_id)
-
-    return Response({"success": True})
