@@ -19,7 +19,7 @@ export interface Lead {
   providedIn: 'root'
 })
 export class OdooService {
-  private apiUrl = 'http://localhost:8000/api/odoo';
+  private apiUrl = 'http://backend:8000/api/odoo';
 
   constructor(private http: HttpClient) { }
 
