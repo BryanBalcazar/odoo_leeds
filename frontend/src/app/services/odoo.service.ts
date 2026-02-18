@@ -19,9 +19,10 @@ export interface Lead {
   providedIn: 'root'
 })
 export class OdooService {
-  private apiUrl = 'http://backend:8000/api/odoo';
 
-  constructor(private http: HttpClient) { }
+  private apiUrl = 'http://localhost:8000/api';
+
+  constructor(private http: HttpClient) {}
 
   getLeads(limit: number = 100): Observable<any> {
     return this.http.get(`${this.apiUrl}/leads/?limit=${limit}`);
