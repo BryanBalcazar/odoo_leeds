@@ -23,8 +23,24 @@ export class OdooService {
 
   constructor(private http: HttpClient) { }
 
-  getLeads(limit: number = 100): Observable<any> {
-    return this.http.get(`${this.apiUrl}/leads/?limit=${limit}`);
+  getLeads(limit = 20, offset = 0): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}?limit=${limit}&offset=${offset}`);
+  }
+
+  getLead(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}${id}/`);
+  }
+
+  createLead(data: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}create/`, data);
+  }
+
+  updateLead(id: number, data: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}${id}/update/`, data);
+  }
+
+  deleteLead(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}${id}/delete/`);
   }
 
   checkConnection(): Observable<any> {
