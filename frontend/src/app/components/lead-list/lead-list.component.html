@@ -34,7 +34,13 @@
       <!-- Tabla de leads -->
       <div *ngIf="!loading && leads.length > 0">
         <div class="table-responsive">
+          <div class="text-muted mt-2">
+          <b>- {{ leads.length }} leads cargados</b>
+        </div>
           <table class="table table-hover">
+            <button routerLink="/leads/new">
+                    Nuevo Lead
+                  </button>
             <thead>
               <tr>
                 <th>ID</th>
@@ -71,17 +77,18 @@
                   </div>
                 </td>
                 <td>
-                  <button class="btn btn-sm btn-outline-primary" (click)="viewLeadDetails(lead)">
+                  <!-- <button class="btn btn-sm btn-outline-primary" (click)="viewLeadDetails(lead)">
                     Ver
-                  </button>
+                  </button> -->
+
+                  <button type="button" (click)="editLead(lead)" > Editar </button>
+                  <button type="button" (click)="deleteLead(lead.id)"> Eliminar </button>
                 </td>
               </tr>
             </tbody>
           </table>
         </div>
-        <div class="text-muted mt-2">
-          Mostrando {{ leads.length }} leads
-        </div>
+
       </div>
 
       <div *ngIf="!loading && leads.length === 0 && !error" class="text-center my-5">

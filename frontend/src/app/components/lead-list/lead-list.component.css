@@ -1,39 +1,181 @@
-.progress {
-  min-width: 100px;
+/* ===== Container ===== */
+
+.container {
+  padding: 25px;
+  background:#f5f7fb;
+  min-height:100vh;
 }
 
-.table th {
-  background-color: #f8f9fa;
-  border-top: none;
+/* ===== Header ===== */
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
 }
 
-.badge {
-  font-size: 0.8em;
-  padding: 5px 10px;
+.title{
+  font-size:26px;
+  font-weight:600;
+  color:#2f3640;
 }
 
-/* Class for the probabilities */
-.high-probability {
-  background-color: #28a745 !important;
+/* ===== Pipeline ===== */
+
+.pipeline{
+
+  display:flex;
+  gap:20px;
+
+  overflow-x:auto;
+  padding-bottom:10px;
+
 }
 
-.medium-probability {
-  background-color: #ffc107 !important;
-  color: #000 !important;
+/* ===== Column ===== */
+
+.stage-column{
+
+  min-width:300px;
+  background:white;
+
+  border-radius:12px;
+
+  padding:15px;
+
+  box-shadow:
+
+  0 4px 12px rgba(0,0,0,.08);
+
 }
 
-.low-probability {
-  background-color: #dc3545 !important;
+/* Stage title */
+
+.stage-title{
+
+  font-weight:600;
+
+  margin-bottom:12px;
+
+  color:#4b6584;
+
 }
 
-/* Responsive table styles */
-@media (max-width: 768px) {
-  .table-responsive {
-    font-size: 0.9rem;
-  }
+/* ===== Lead Card ===== */
 
-  .btn-sm {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.8rem;
-  }
+.lead-card{
+
+  background:white;
+
+  border-radius:10px;
+
+  padding:15px;
+
+  margin-bottom:12px;
+
+  border-left:5px solid #4a90e2;
+
+  box-shadow:
+
+  0 2px 8px rgba(0,0,0,.06);
+
+  transition:.25s ease;
+
+  cursor:pointer;
+
+}
+
+.lead-card:hover{
+
+  transform:translateY(-4px);
+
+  box-shadow:
+
+  0 10px 20px rgba(0,0,0,.15);
+
+}
+
+/* ===== Lead title ===== */
+
+.lead-name{
+
+  font-weight:600;
+
+  color:#2f3640;
+
+}
+
+/* ===== Meta ===== */
+
+.meta{
+
+  font-size:13px;
+
+  color:#8395a7;
+
+  margin-top:6px;
+
+}
+
+/* ===== Probability colors ===== */
+
+.high-probability{
+
+  border-left-color:#2ecc71;
+
+}
+
+.medium-probability{
+
+  border-left-color:#f1c40f;
+
+}
+
+.low-probability{
+
+  border-left-color:#e74c3c;
+
+}
+
+/* ===== Buttons ===== */
+
+.btn{
+
+  border:none;
+
+  padding:8px 14px;
+
+  border-radius:8px;
+
+  cursor:pointer;
+
+  font-weight:500;
+
+}
+
+.btn-primary{
+
+  background:#4a90e2;
+
+  color:white;
+
+}
+
+.btn-primary:hover{
+
+  background:#357abd;
+
+}
+
+.btn-edit{
+
+  background:#ecf0f1;
+
+}
+
+.btn-edit:hover{
+
+  background:#dfe6e9;
+
 }

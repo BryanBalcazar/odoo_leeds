@@ -1,4 +1,3 @@
-// frontend/src/app/components/lead-list/lead-list.component.ts
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -67,10 +66,9 @@ export class LeadListComponent implements OnInit {
     this.loadLeads();
   }
 
-  // Método faltante que causa el error
-  viewLeadDetails(lead: Lead): void {
-    this.router.navigate(['/leads', lead.id]);
-  }
+  // viewLeadDetails(lead: Lead): void {
+  //   this.router.navigate(['/leads', lead.id]);
+  // }
 
   // Método auxiliar para formatear fechas
   formatDate(dateString: string): string {
@@ -88,5 +86,18 @@ export class LeadListComponent implements OnInit {
     if (probability >= 70) return 'high-probability';
     if (probability >= 30) return 'medium-probability';
     return 'low-probability';
+  }
+  editLead(lead:Lead){
+    this.router.navigate(
+    ['/leads/edit',lead.id]
+    );
+  }
+  deleteLead(id:number){
+    if(confirm("Eliminar lead?")){
+      this.odooService.deleteLead(id)
+      .subscribe(()=>{
+      this.loadLeads();
+      });
+    }
   }
 }

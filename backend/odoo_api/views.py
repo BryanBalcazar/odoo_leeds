@@ -22,7 +22,6 @@ def list_leads(request):
     return Response({
         "success": True,
         "data": leads
-  
     })
 
 

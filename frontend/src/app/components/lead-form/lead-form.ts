@@ -64,20 +64,24 @@ export class LeadFormComponent implements OnInit{
     if(this.isEdit){
       this.odooService
       .updateLead(this.lead.id,this.lead).subscribe({
-      next:()=>{this.router.navigate(['/leads']);},
-      error:()=>{
-        this.loading=false;}
+      next:()=>{
+        this.loading=false;
+        this.router.navigate(['/leads']);
+        }
       });
     }
 
     else{
-      this.odooService
-      .createLead(this.lead).subscribe({ next:()=>{
-        this.router.navigate(['/leads']);},
-      error:()=>{
-        this.loading=false;}
-      });
-    }
+        this.odooService
+        .createLead(this.lead).subscribe({ next:()=>{
+          this.router.navigate(['/leads']);},
+        error:(err)=>{
+          console.error(err);
+          this.loading=false;
+          alert('Error guardando el lead');
+          }
+        });
+      }
     }
 }
 

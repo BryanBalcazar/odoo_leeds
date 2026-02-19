@@ -1,1 +1,23 @@
-<p>lead-form works!</p>
+<form (ngSubmit)="save()">
+
+  <label>Nombre</label>
+  <input type="text" [(ngModel)]="lead.name" name="name" required >
+
+  <label>Email</label>
+  <input type="email" [(ngModel)]="lead.email" name="email" >
+
+  <label>Teléfono</label>
+  <input type="text" [(ngModel)]="lead.phone" name="phone">
+
+  <label>Revenue esperado</label>
+  <input type="number" [(ngModel)]="lead.expected_revenue" name="expected_revenue">
+
+  <label>Probabilidad</label>
+  <input type="number" [(ngModel)]="lead.probability" name="probability">
+
+  <label>Descripción</label>
+  <textarea [(ngModel)]="lead.description" name="description"> </textarea>
+
+  <button type="submit">Guardar</button>
+
+</form>
