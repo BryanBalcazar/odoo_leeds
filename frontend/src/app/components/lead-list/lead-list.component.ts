@@ -50,10 +50,10 @@ export class LeadListComponent implements OnInit {
       next: (response) => {
         if (response.success) {
           this.leads = response.data;
-          this.cdr.detectChanges(); 
+          this.cdr.detectChanges();
         }
         this.loading = false;
-        this.cdr.detectChanges(); 
+        this.cdr.detectChanges();
       },
       error: (err) => {
         this.error = 'Error de conexión con la API';

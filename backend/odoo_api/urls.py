@@ -8,4 +8,5 @@ urlpatterns = [
     path('leads/create/', create_lead),
     path('leads/<int:lead_id>/update/', update_lead),
     path('leads/<int:lead_id>/delete/', delete_lead),
+    path('leads/<int:lead_id>/', get_lead),
 ]

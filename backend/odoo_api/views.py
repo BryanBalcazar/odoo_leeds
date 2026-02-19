@@ -2,6 +2,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .services.lead_service import LeadService
 from django.http import JsonResponse
+from .odoo_client import OdooClient
+
 
 def health_check(request):
     return JsonResponse({
@@ -19,16 +21,8 @@ def list_leads(request):
 
     return Response({
         "success": True,
-        "data": [
-    {
-      "id": 1,
-      "name": "Lead de prueba",
-      "email": "ejemplo@mail.com",
-      "stage": "Nuevo",
-      "expected_revenue": 500,
-      "probability": 10
-    }
-  ]
+        "data": leads
+  
     })
 
 
@@ -45,21 +39,35 @@ def retrieve_lead(request, lead_id):
 
 @api_view(['POST'])
 def create_lead(request):
-    service = LeadService()
-    lead_id = service.create(request.data)
+    try:
+        odoo = OdooClient()
+        lead_id = odoo.create_lead(request.data)
+        return Response({
+            "success": True,
+            "lead_id": lead_id
+        })
 
-    return Response({
-        "success": True,
-        "id": lead_id
-    })
+    except Exception as e:
+        return Response({
+            "success": False,
+            "error": str(e)
+        }, status=500)
 
 
 @api_view(['PUT'])
 def update_lead(request, lead_id):
-    service = LeadService()
-    service.update(lead_id, request.data)
+    try:
+        odoo = OdooClient()
+        odoo.update_lead(lead_id, request.data)
+        return Response({
+            "success": True,
+            "message": "Lead updated"})
 
-    return Response({"success": True})
+    except Exception as e:
+        return Response({
+            "success": False,
+            "error": str(e)}, 
+            status=500)
 
 
 @api_view(['DELETE'])
@@ -68,3 +76,15 @@ def delete_lead(request, lead_id):
     service.delete(lead_id)
 
     return Response({"success": True})
+
+@api_view(['GET'])
+def get_lead(request, lead_id):
+    try:
+        odoo = OdooClient()
+        lead = odoo.get_lead_by_id(lead_id)
+        return Response({
+            "success": True,
+            "data": lead
+        })
+    except Exception as e:
+        return Response({"success": False, "error": str(e)}, status=500)

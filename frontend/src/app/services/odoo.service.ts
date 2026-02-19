@@ -19,7 +19,7 @@ export interface Lead {
   providedIn: 'root'
 })
 export class OdooService {
-  private apiUrl = 'http://localhost:8000/api'; 
+  private apiUrl = 'http://localhost:8000/api';
 
   constructor(private http: HttpClient) { }
 
@@ -30,4 +30,32 @@ export class OdooService {
   getLeads(limit: number = 50): Observable<any> {
     return this.http.get(`${this.apiUrl}/leads/?limit=${limit}`);
   }
+
+  getLeadById(id:number){
+      return this.http.get<any>(
+    `${this.apiUrl}/leads/${id}/`
+      );
+  }
+
+  createLead(data:any){
+    return this.http.post(
+    `${this.apiUrl}/leads/create/`, data
+    );
+}
+
+// UPDATE
+
+updateLead(id:number,data:any){
+return this.http.put(
+`${this.apiUrl}/leads/${id}/update/`, data
+);
+}
+
+
+deleteLead(id:number){
+return this.http.delete(
+`${this.apiUrl}/leads/${id}/delete/`
+);
+
+}
 }

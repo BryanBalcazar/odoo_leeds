@@ -15,7 +15,7 @@ class OdooClient:
         self.port = 8069
         self.database = DB_NAME
         self.username = 'andres@mail.com'
-        self.password = PASSWORD
+        self.password = "1234"
         self.protocol = 'jsonrpc'
 
         self.odoo = self._connect()
@@ -32,3 +32,62 @@ class OdooClient:
         except Exception as e:
             raise ConnectionError(f"Odoo connection failed: {e}")
     
+    def get_lead_by_id(self, lead_id):
+
+        Lead = self.odoo.env['crm.lead']
+
+        leads = Lead.search_read(
+
+            [('id','=',lead_id)],
+
+            ['id',
+                'name',
+                'email_from',
+                'phone',
+                'probability',
+                'expected_revenue',
+                'stage_id'
+            ]
+
+        )
+
+        if leads:
+
+            return leads[0]
+
+        return {}
+
+    def create_lead(self, data):
+
+        lead_id = self.odoo.env['crm.lead'].create({
+
+            "name": data.get("name"),
+            "contact_name": data.get("contact_name"),
+            "email_from": data.get("email"),
+            "phone": data.get("phone"),
+            "description": data.get("description"),
+            "probability": data.get("probability", 0)
+
+        })
+
+        return lead_id
+
+    def update_lead(self, lead_id, data):
+
+        lead = self.odoo.env['crm.lead'].browse(lead_id)
+
+        if not lead.exists():
+            raise Exception("Lead not found")
+
+        lead.write({
+
+            "name": data.get("name"),
+            "contact_name": data.get("contact_name"),
+            "email_from": data.get("email"),
+            "phone": data.get("phone"),
+            "description": data.get("description"),
+            "probability": data.get("probability")
+
+        })
+
+        return True
