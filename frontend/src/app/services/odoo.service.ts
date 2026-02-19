@@ -19,16 +19,15 @@ export interface Lead {
   providedIn: 'root'
 })
 export class OdooService {
+  private apiUrl = 'http://localhost:8000/api'; 
 
-  private apiUrl = 'http://localhost:8000/api';
-
-  constructor(private http: HttpClient) {}
-
-  getLeads(limit: number = 100): Observable<any> {
-    return this.http.get(`${this.apiUrl}/leads/?limit=${limit}`);
-  }
+  constructor(private http: HttpClient) { }
 
   checkConnection(): Observable<any> {
     return this.http.get(`${this.apiUrl}/health/`);
+  }
+
+  getLeads(limit: number = 50): Observable<any> {
+    return this.http.get(`${this.apiUrl}/leads/?limit=${limit}`);
   }
 }

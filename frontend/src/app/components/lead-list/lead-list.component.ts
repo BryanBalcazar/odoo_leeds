@@ -1,5 +1,5 @@
 // frontend/src/app/components/lead-list/lead-list.component.ts
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { OdooService, Lead } from '../../services/odoo.service';
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-lead-list',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, DecimalPipe],
   templateUrl: './lead-list.component.html',
   styleUrls: ['./lead-list.component.css']
 })
@@ -20,7 +20,8 @@ export class LeadListComponent implements OnInit {
 
   constructor(
     private odooService: OdooService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -45,20 +46,19 @@ export class LeadListComponent implements OnInit {
 
   loadLeads(): void {
     this.loading = true;
-    this.error = '';
-
     this.odooService.getLeads(50).subscribe({
       next: (response) => {
         if (response.success) {
           this.leads = response.data;
-        } else {
-          this.error = 'Error al obtener los leads';
+          this.cdr.detectChanges(); 
         }
         this.loading = false;
+        this.cdr.detectChanges(); 
       },
       error: (err) => {
         this.error = 'Error de conexión con la API';
         this.loading = false;
+        this.cdr.detectChanges();
       }
     });
   }

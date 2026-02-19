@@ -1,4 +1,3 @@
-<!-- frontend/src/app/components/lead-list/lead-list.component.html -->
 <div class="container mt-4">
   <div class="card">
     <div class="card-header">
@@ -60,11 +59,9 @@
                 </td>
                 <td>{{ lead.assigned_to }}</td>
                 <td>
-                  <!-- Usar DecimalPipe correctamente -->
                   ${{ lead.expected_revenue | number:'1.2-2' }}
                 </td>
                 <td>
-                  <!-- Corregido: usar [class] en lugar de [ngClass] -->
                   <div class="progress" style="height: 20px;">
                     <div class="progress-bar"
                          [class]="getProbabilityClass(lead.probability)"
@@ -87,7 +84,6 @@
         </div>
       </div>
 
-      <!-- Sin datos -->
       <div *ngIf="!loading && leads.length === 0 && !error" class="text-center my-5">
         <div class="text-muted">
           <i class="bi bi-inbox" style="font-size: 3rem;"></i>

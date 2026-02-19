@@ -1,6 +1,13 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .services.lead_service import LeadService
+from django.http import JsonResponse
+
+def health_check(request):
+    return JsonResponse({
+        "success": True, 
+        "message": "Backend conectado exitosamente"
+    })
 
 @api_view(['GET'])
 def list_leads(request):
@@ -12,7 +19,16 @@ def list_leads(request):
 
     return Response({
         "success": True,
-        "data": leads
+        "data": [
+    {
+      "id": 1,
+      "name": "Lead de prueba",
+      "email": "ejemplo@mail.com",
+      "stage": "Nuevo",
+      "expected_revenue": 500,
+      "probability": 10
+    }
+  ]
     })
 
 
